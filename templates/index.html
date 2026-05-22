@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Game</title>
+</head>
+<body>
+
+<h1>Multiplication Game</h1>
+
+<p>Score: {{ points }}/{{ calculations }}</p>
+
+<h2>{{ num }} × {{ table }} = ?</h2>
+
+<form method="POST">
+    <input name="answer" autocomplete="off">
+    <button type="submit">Submit</button>
+</form>
+
+<p>{{ feedback }}</p>
+
+</body>
+</html>
