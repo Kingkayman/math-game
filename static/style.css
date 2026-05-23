@@ -1,81 +1,23 @@
 body {
-    margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    font-family: Arial, sans-serif;
+    font-family: Arial;
+    background: #f5f5f5;
 }
 
 .container {
-    width: 90%;
     max-width: 420px;
-    margin: 40px auto;
+    margin: auto;
     background: white;
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.question {
-    font-size: 40px;
-    margin: 25px 0;
-}
-
-input,
-select,
-button {
+.ad-banner-top {
     width: 100%;
-    padding: 14px;
-    margin-top: 12px;
-    font-size: 18px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-button {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    font-weight: bold;
-}
-
-button:active {
-    transform: scale(0.98);
-}
-
-.game-info {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-}
-
-.play-again {
-    display: inline-block;
+.footer {
     margin-top: 20px;
-    background: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    text-decoration: none;
-}
-
-.score {
-    font-size: 22px;
-}
-
-@media (max-width: 500px) {
-    .container {
-        margin: 20px auto;
-        padding: 20px;
-    }
-
-    .question {
-        font-size: 34px;
-    }
+    font-size: 14px;
 }

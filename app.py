@@ -18,13 +18,10 @@ def generate_question():
 
     if game_type == "multiplication":
         return multiplication_question(value)
-
     elif game_type == "addition":
         return addition_question(value)
-
     elif game_type == "subtraction":
         return subtraction_question(value)
-
     elif game_type == "division":
         return division_question(value)
 
@@ -32,7 +29,6 @@ def generate_question():
 @app.route("/", methods=["GET", "POST"])
 def index():
 
-    # START GAME
     if request.method == "POST" and "start_game" in request.form:
 
         session["game_type"] = request.form["game_type"]
@@ -45,7 +41,6 @@ def index():
 
         return redirect("/")
 
-    # SUBMIT ANSWER
     if request.method == "POST" and "answer" in request.form:
 
         try:
@@ -53,8 +48,7 @@ def index():
 
             if answer == session["question_data"]["answer"]:
                 session["score"] += 1
-
-        except ValueError:
+        except:
             pass
 
         session["round"] += 1
@@ -64,11 +58,7 @@ def index():
             final_score = session["score"]
             session.clear()
 
-            return render_template(
-                "index.html",
-                finished=True,
-                score=final_score
-            )
+            return render_template("index.html", finished=True, score=final_score)
 
         session["question_data"] = generate_question()
 
@@ -80,12 +70,10 @@ def index():
         score=session.get("score", 0),
         round=session.get("round", 0),
         finished=False,
-        game_type=session.get("game_type"),
-        value=session.get("value")
+        game_type=session.get("game_type")
     )
 
 
-# 🚀 IMPORTANT FOR RENDER
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)

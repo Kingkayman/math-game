@@ -8,90 +8,77 @@
 
     <title>Math Game</title>
 
+    <!-- ADSENSE SCRIPT (DU BAD OM DENNA) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6875340177287559"
+     crossorigin="anonymous"></script>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="manifest" href="/static/manifest.json">
 </head>
 
 <body>
 
 <div class="container">
 
-    <h1>Math Game</h1>
+    <!-- TOP BANNER AD -->
+    <div class="ad-banner-top">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-6875340177287559"
+             data-ad-slot="auto"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
 
-    {% if game_type %}
-        <p class="mode">Mode: {{ game_type }}</p>
-    {% endif %}
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <h1>Math Game</h1>
 
     {% if finished %}
 
         <h2>Game Over</h2>
+        <p>Your score: {{ score }}/10</p>
 
-        <p class="score">Your score: {{ score }}/10</p>
-
-        <a class="play-again" href="/">Play Again</a>
+        <a href="/">Play Again</a>
 
     {% elif not question_data %}
 
         <form method="POST">
 
             <select name="game_type">
-
                 <option value="addition">Addition</option>
                 <option value="subtraction">Subtraction</option>
                 <option value="multiplication">Multiplication</option>
                 <option value="division">Division</option>
-
             </select>
-
-            <label style="display:block; margin-top:15px; font-weight:bold;">
-
-                {% if game_type == "multiplication" %}
-                    Which times table do you want to train?
-                {% elif game_type == "division" %}
-                    Which division table do you want to train?
-                {% else %}
-                    What max number do you want to train?
-                {% endif %}
-
-            </label>
 
             <input type="number" name="value" min="1" required>
 
-            <button type="submit" name="start_game">
-                Start Game
-            </button>
+            <button type="submit" name="start_game">Start</button>
 
         </form>
 
     {% else %}
 
-        <div class="game-info">
-            <p>Round {{ round }}/10</p>
-            <p>Score: {{ score }}</p>
-        </div>
+        <p>Round {{ round }}/10</p>
+        <p>Score: {{ score }}</p>
 
-        <h2 class="question">
-            {{ question_data.question }}
-        </h2>
+        <h2>{{ question_data.question }}</h2>
 
         <form method="POST">
-
-            <input type="number" name="answer" placeholder="Your answer" required autofocus>
-
+            <input type="number" name="answer" required>
             <button type="submit">Submit</button>
-
         </form>
 
     {% endif %}
 
-</div>
+    <div class="footer">
+        <a href="/about">About</a> |
+        <a href="/privacy">Privacy Policy</a>
+    </div>
 
-<script>
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/static/sw.js")
-        .then(() => console.log("SW registered"));
-}
-</script>
+</div>
 
 </body>
 </html>
