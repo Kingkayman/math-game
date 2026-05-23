@@ -72,6 +72,13 @@ def index():
     )
 
 
+# 🔥 ONLY NEW ADDITION
+@app.route("/quit", methods=["POST"])
+def quit_game():
+    session.clear()
+    return redirect("/")
+
+
 @app.route("/about")
 def about():
     return render_template("about.html")
@@ -82,7 +89,6 @@ def privacy():
     return render_template("privacy.html")
 
 
-# 🔥 ADS.TXT FIX (IMPORTANT FOR ADSENSE)
 @app.route("/ads.txt")
 def ads_txt():
     return app.send_static_file("ads.txt")
