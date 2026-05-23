@@ -8,12 +8,10 @@ from game_logic import (
 )
 
 app = Flask(__name__)
-
 app.secret_key = "secret-key"
 
 
 def generate_question():
-
     game_type = session["game_type"]
     value = session["value"]
 
@@ -63,7 +61,6 @@ def index():
         if session["round"] > 10:
 
             final_score = session["score"]
-
             session.clear()
 
             return render_template(
@@ -81,7 +78,9 @@ def index():
         question_data=session.get("question_data"),
         score=session.get("score", 0),
         round=session.get("round", 0),
-        finished=False
+        finished=False,
+        game_type=session.get("game_type"),
+        value=session.get("value")
     )
 
 

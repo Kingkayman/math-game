@@ -18,6 +18,10 @@
 
     <h1>Math Game</h1>
 
+    {% if game_type %}
+        <p class="mode">Mode: {{ game_type }}</p>
+    {% endif %}
+
     {% if finished %}
 
         <h2>Game Over</h2>
@@ -30,7 +34,7 @@
 
         <form method="POST">
 
-            <select name="game_type" id="game-type">
+            <select name="game_type">
 
                 <option value="addition">Addition</option>
                 <option value="subtraction">Subtraction</option>
@@ -39,11 +43,19 @@
 
             </select>
 
-            <label id="input-label" style="display:block; margin-top:15px; font-weight:bold;">
-                Enter value
+            <label style="display:block; margin-top:15px; font-weight:bold;">
+
+                {% if game_type == "multiplication" %}
+                    Which times table do you want to train?
+                {% elif game_type == "division" %}
+                    Which division table do you want to train?
+                {% else %}
+                    What max number do you want to train?
+                {% endif %}
+
             </label>
 
-            <input type="number" name="value" id="value-input" min="1" required>
+            <input type="number" name="value" min="1" required>
 
             <button type="submit" name="start_game">
                 Start Game
@@ -73,30 +85,6 @@
     {% endif %}
 
 </div>
-
-<script>
-
-const gameType = document.getElementById("game-type");
-const label = document.getElementById("input-label");
-
-function updateLabel() {
-    if (!gameType || !label) return;
-
-    if (gameType.value === "multiplication") {
-        label.innerText = "What multiplication table do you want to train?";
-    } 
-    else if (gameType.value === "division") {
-        label.innerText = "What division table do you want to train?";
-    } 
-    else {
-        label.innerText = "What max number do you want to train?";
-    }
-}
-
-updateLabel();
-gameType.addEventListener("change", updateLabel);
-
-</script>
 
 <script>
 if ("serviceWorker" in navigator) {
