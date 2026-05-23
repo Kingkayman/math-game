@@ -51,7 +51,7 @@
 
             <label>Choose game mode:</label>
 
-            <select name="game_type">
+            <select name="game_type" id="gameType">
                 <option value="addition">Addition</option>
                 <option value="subtraction">Subtraction</option>
                 <option value="multiplication">Multiplication</option>
@@ -60,15 +60,7 @@
 
             <br><br>
 
-            <label>
-                {% if game_type == "multiplication" %}
-                    What multiplication table do you want to train?
-                {% elif game_type == "division" %}
-                    What division table do you want to train?
-                {% else %}
-                    What is the maximum number you want to train?
-                {% endif %}
-            </label>
+            <label id="dynamicLabel">What do you want to train?</label>
 
             <input type="number" name="value" min="1" required>
 
@@ -77,6 +69,29 @@
             <button type="submit" name="start_game">Start Game</button>
 
         </form>
+
+        <!-- DYNAMISK TEXT (JS) -->
+        <script>
+            const gameType = document.getElementById("gameType");
+            const label = document.getElementById("dynamicLabel");
+
+            function updateLabel() {
+                const value = gameType.value;
+
+                if (value === "multiplication") {
+                    label.innerText = "What multiplication table do you want to train?";
+                }
+                else if (value === "division") {
+                    label.innerText = "What division table do you want to train?";
+                }
+                else {
+                    label.innerText = "What is the maximum number you want to train?";
+                }
+            }
+
+            gameType.addEventListener("change", updateLabel);
+            updateLabel();
+        </script>
 
     {% else %}
 
