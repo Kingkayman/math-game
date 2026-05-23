@@ -22,10 +22,10 @@
     <h1>Math Game</h1>
 
     {% if not question_data and not finished %}
-        <p class="info-text">Choose a mode and start training your math skills.</p>
+        <p class="info-text">Choose a game mode and start training your math skills.</p>
     {% endif %}
 
-    <!-- TOP AD (diskret) -->
+    <!-- TOP AD -->
     <div class="ad-banner-top">
         <ins class="adsbygoogle"
              style="display:block"
@@ -58,8 +58,21 @@
                 <option value="division">Division</option>
             </select>
 
-            <label>Choose number / table:</label>
+            <br><br>
+
+            <label>
+                {% if game_type == "multiplication" %}
+                    What multiplication table do you want to train?
+                {% elif game_type == "division" %}
+                    What division table do you want to train?
+                {% else %}
+                    What is the maximum number you want to train?
+                {% endif %}
+            </label>
+
             <input type="number" name="value" min="1" required>
+
+            <br><br>
 
             <button type="submit" name="start_game">Start Game</button>
 
