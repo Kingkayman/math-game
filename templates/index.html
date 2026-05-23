@@ -8,7 +8,7 @@
 
     <title>Math Game</title>
 
-    <!-- ADSENSE SCRIPT (DU BAD OM DENNA) -->
+    <!-- AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6875340177287559"
      crossorigin="anonymous"></script>
 
@@ -19,7 +19,13 @@
 
 <div class="container">
 
-    <!-- TOP BANNER AD -->
+    <h1>Math Game</h1>
+
+    {% if not question_data and not finished %}
+        <p class="info-text">Choose a mode and start training your math skills.</p>
+    {% endif %}
+
+    <!-- TOP AD (diskret) -->
     <div class="ad-banner-top">
         <ins class="adsbygoogle"
              style="display:block"
@@ -33,18 +39,17 @@
         </script>
     </div>
 
-    <h1>Math Game</h1>
-
     {% if finished %}
 
         <h2>Game Over</h2>
         <p>Your score: {{ score }}/10</p>
-
         <a href="/">Play Again</a>
 
     {% elif not question_data %}
 
         <form method="POST">
+
+            <label>Choose game mode:</label>
 
             <select name="game_type">
                 <option value="addition">Addition</option>
@@ -53,9 +58,10 @@
                 <option value="division">Division</option>
             </select>
 
+            <label>Choose number / table:</label>
             <input type="number" name="value" min="1" required>
 
-            <button type="submit" name="start_game">Start</button>
+            <button type="submit" name="start_game">Start Game</button>
 
         </form>
 
@@ -67,7 +73,7 @@
         <h2>{{ question_data.question }}</h2>
 
         <form method="POST">
-            <input type="number" name="answer" required>
+            <input type="number" name="answer" required autofocus>
             <button type="submit">Submit</button>
         </form>
 

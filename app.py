@@ -54,10 +54,8 @@ def index():
         session["round"] += 1
 
         if session["round"] > 10:
-
             final_score = session["score"]
             session.clear()
-
             return render_template("index.html", finished=True, score=final_score)
 
         session["question_data"] = generate_question()
@@ -72,6 +70,16 @@ def index():
         finished=False,
         game_type=session.get("game_type")
     )
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
+
+@app.route("/privacy")
+def privacy():
+    return render_template("privacy.html")
 
 
 if __name__ == "__main__":
