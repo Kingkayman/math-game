@@ -1,22 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Multiplication Game</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Game</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
 
-<h1>Multiplication Game</h1>
+<div class="container">
 
-<p>Score: {{ points }}/{{ calculations }}</p>
+    <h1>Math Game</h1>
 
-<h2>{{ num }} × {{ table }} = ?</h2>
+    {% if finished %}
 
-<form method="POST">
-    <input name="answer" autocomplete="off">
-    <button type="submit">Submit</button>
-</form>
+        <h2>Game Over</h2>
 
-<p>{{ feedback }}</p>
+        <p class="score">
+            Your score: {{ score }}/10
+        </p>
+
+        <a class="play-again" href="/">
+            Play Again
+        </a>
+
+    {% elif not question_data %}
+
+        <form method="POST">
+
+            <select name="game_type" id="game-type">
+
+                <option value="addition">Addition</option>
+                <option value="subtraction">Subtraction</option>
+                <option value="multiplication">Multiplication</option>
+                <option value="division">Division</option>
+
+            </select>
+
+            <label id="input-label" style="display:block; margin-top:15px; font-weight:bold;">
+                Enter value
+            </label>
+
+            <input
+                type="number"
+                name="value"
+                id="value-input"
+                min="1"
+                required
+            >
+
+            <button type="submit" name="start_game">
+                Start Game
+            </button>
+
+        </form>
+
+    {% else %}
+
+        <div class="game-info">
+
+            <p>Round {{ round }}/10</p>
+
+            <p>Score: {{ score }}</p>
+
+        </div>
+
+        <h2 class="question">
+            {{ question_data.question }}
+        </h2>
+
+        <form method="POST">
+
+            <input
+                type="number"
+                name="answer"
+                placeholder="Your answer"
+                autofocus
+                required
+            >
+
+            <button type="submit">
+                Submit
+            </button>
+
+        </form>
+
+    {% endif %}
+
+</div>
+
+<script>
+
+const gameType = document.getElementById("game-type");
+const label = document.getElementById("input-label");
+
+function updateLabel() {
+
+    if (!gameType || !label) return;
+
+    if (gameType.value === "multiplication") {
+        label.innerText = "What multiplication table do you want to train?";
+    }
+
+    else if (gameType.value === "division") {
+        label.innerText = "What division table do you want to train?";
+    }
+
+    else if (gameType.value === "addition") {
+        label.innerText = "What max number do you want to train?";
+    }
+
+    else if (gameType.value === "subtraction") {
+        label.innerText = "What max number do you want to train?";
+    }
+}
+
+updateLabel();
+gameType.addEventListener("change", updateLabel);
+
+</script>
 
 </body>
 </html>

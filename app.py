@@ -1,46 +1,89 @@
-from flask import Flask, render_template, request
-import random
+from flask import Flask, render_template, request, session, redirect
+
+from game_logic import (
+    multiplication_question,
+    addition_question,
+    subtraction_question,
+    division_question
+)
 
 app = Flask(__name__)
 
-points = 0
-calculations = 0
-num = random.randint(1, 10)
-table = random.randint(2, 10)
+app.secret_key = "secret-key"
+
+
+def generate_question():
+
+    game_type = session["game_type"]
+    value = session["value"]
+
+    if game_type == "multiplication":
+        return multiplication_question(value)
+
+    elif game_type == "addition":
+        return addition_question(value)
+
+    elif game_type == "subtraction":
+        return subtraction_question(value)
+
+    elif game_type == "division":
+        return division_question(value)
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
-    global points, calculations, num, table
 
-    feedback = ""
+    # START GAME
+    if request.method == "POST" and "start_game" in request.form:
 
-    if request.method == "POST":
-        answer = request.form.get("answer")
+        session["game_type"] = request.form["game_type"]
+        session["value"] = int(request.form["value"])
+
+        session["score"] = 0
+        session["round"] = 1
+
+        session["question_data"] = generate_question()
+
+        return redirect("/")
+
+    # SUBMIT ANSWER
+    if request.method == "POST" and "answer" in request.form:
 
         try:
-            answer = int(answer)
-            correct = num * table
+            answer = int(request.form["answer"])
 
-            if answer == correct:
-                feedback = "correct"
-                points += 1
-            else:
-                feedback = f"wrong, correct was {correct}"
+            if answer == session["question_data"]["answer"]:
+                session["score"] += 1
 
-        except:
-            feedback = f"wrong, correct was {num * table}"
+        except ValueError:
+            pass
 
-        calculations += 1
-        num = random.randint(1, 10)
+        session["round"] += 1
+
+        if session["round"] > 10:
+
+            final_score = session["score"]
+
+            session.clear()
+
+            return render_template(
+                "index.html",
+                finished=True,
+                score=final_score
+            )
+
+        session["question_data"] = generate_question()
+
+        return redirect("/")
 
     return render_template(
         "index.html",
-        num=num,
-        table=table,
-        points=points,
-        calculations=calculations,
-        feedback=feedback
+        question_data=session.get("question_data"),
+        score=session.get("score", 0),
+        round=session.get("round", 0),
+        finished=False
     )
 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    app.run(debug=True)
