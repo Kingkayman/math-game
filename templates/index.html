@@ -17,6 +17,20 @@
 
 <body>
 
+<!-- 🔝 ONLY TOP AD -->
+<div class="ad-top">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-6875340177287559"
+         data-ad-slot="auto"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
 <div class="container">
 
     <h1>Math Game</h1>
@@ -24,20 +38,6 @@
     {% if not question_data and not finished %}
         <p class="info-text">Choose a game mode and start training your math skills.</p>
     {% endif %}
-
-    <!-- TOP AD -->
-    <div class="ad-banner-top">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-6875340177287559"
-             data-ad-slot="auto"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
 
     {% if finished %}
 
@@ -70,7 +70,6 @@
 
         </form>
 
-        <!-- DYNAMISK TEXT (JS) -->
         <script>
             const gameType = document.getElementById("gameType");
             const label = document.getElementById("dynamicLabel");
