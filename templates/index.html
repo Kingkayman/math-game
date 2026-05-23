@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#4CAF50">
+
     <title>Math Game</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="manifest" href="/static/manifest.json">
 </head>
 
 <body>
@@ -19,13 +22,9 @@
 
         <h2>Game Over</h2>
 
-        <p class="score">
-            Your score: {{ score }}/10
-        </p>
+        <p class="score">Your score: {{ score }}/10</p>
 
-        <a class="play-again" href="/">
-            Play Again
-        </a>
+        <a class="play-again" href="/">Play Again</a>
 
     {% elif not question_data %}
 
@@ -44,13 +43,7 @@
                 Enter value
             </label>
 
-            <input
-                type="number"
-                name="value"
-                id="value-input"
-                min="1"
-                required
-            >
+            <input type="number" name="value" id="value-input" min="1" required>
 
             <button type="submit" name="start_game">
                 Start Game
@@ -61,11 +54,8 @@
     {% else %}
 
         <div class="game-info">
-
             <p>Round {{ round }}/10</p>
-
             <p>Score: {{ score }}</p>
-
         </div>
 
         <h2 class="question">
@@ -74,17 +64,9 @@
 
         <form method="POST">
 
-            <input
-                type="number"
-                name="answer"
-                placeholder="Your answer"
-                autofocus
-                required
-            >
+            <input type="number" name="answer" placeholder="Your answer" required autofocus>
 
-            <button type="submit">
-                Submit
-            </button>
+            <button type="submit">Submit</button>
 
         </form>
 
@@ -98,22 +80,15 @@ const gameType = document.getElementById("game-type");
 const label = document.getElementById("input-label");
 
 function updateLabel() {
-
     if (!gameType || !label) return;
 
     if (gameType.value === "multiplication") {
         label.innerText = "What multiplication table do you want to train?";
-    }
-
+    } 
     else if (gameType.value === "division") {
         label.innerText = "What division table do you want to train?";
-    }
-
-    else if (gameType.value === "addition") {
-        label.innerText = "What max number do you want to train?";
-    }
-
-    else if (gameType.value === "subtraction") {
+    } 
+    else {
         label.innerText = "What max number do you want to train?";
     }
 }
@@ -121,6 +96,13 @@ function updateLabel() {
 updateLabel();
 gameType.addEventListener("change", updateLabel);
 
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/static/sw.js")
+        .then(() => console.log("SW registered"));
+}
 </script>
 
 </body>
