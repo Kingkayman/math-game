@@ -82,6 +82,12 @@ def privacy():
     return render_template("privacy.html")
 
 
+# 🔥 ADS.TXT FIX (IMPORTANT FOR ADSENSE)
+@app.route("/ads.txt")
+def ads_txt():
+    return app.send_static_file("ads.txt")
+
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
